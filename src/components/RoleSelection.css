@@ -1,0 +1,65 @@
+.role-selection-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.role-container {
+  padding: 40px;
+  text-align: center;
+  max-width: 500px;
+  width: 100%;
+}
+
+.role-container h1 {
+  font-size: 2.5rem;
+  color: var(--color-primary);
+  margin-bottom: 10px;
+}
+
+.role-container p {
+  color: var(--color-text-light);
+  margin-bottom: 40px;
+  font-size: 1.1rem;
+}
+
+.role-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.role-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 15px;
+  padding: 15px 30px;
+  font-size: 1.3rem;
+  border-radius: 12px;
+  transition: transform 0.2s, box-shadow 0.2s;
+  border: 2px solid transparent;
+}
+
+.piu-btn {
+  background-color: var(--color-bg-primary);
+  color: var(--color-primary);
+  border-color: var(--color-primary);
+}
+
+.piu-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 15px rgba(244, 63, 94, 0.2);
+}
+
+.anshu-btn {
+  background-color: var(--color-text);
+  color: white;
+}
+
+.anshu-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 15px rgba(76, 5, 25, 0.3);
+}

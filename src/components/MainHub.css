@@ -1,0 +1,91 @@
+.hub-container {
+  padding: 40px 20px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  background-image: radial-gradient(circle at 15% 50%, rgba(255, 255, 255, 0.3) 0%, transparent 50%), radial-gradient(circle at 85% 30%, rgba(255, 255, 255, 0.4) 0%, transparent 50%);
+}
+
+.hub-header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.hub-header h1 {
+  font-size: 3.5rem;
+  color: var(--color-primary);
+  margin-bottom: 10px;
+}
+
+.hub-header p {
+  font-size: 1.2rem;
+  color: var(--color-text-light);
+}
+
+.hub-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  width: 100%;
+  max-width: 1000px;
+  z-index: 2;
+}
+
+.hub-card {
+  width: calc(33.333% - 20px);
+  min-width: 280px;
+  padding: 30px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  cursor: pointer;
+}
+
+.card-icon {
+  background-color: var(--color-accent);
+  color: var(--color-primary);
+  padding: 15px;
+  border-radius: 50%;
+  margin-bottom: 20px;
+}
+
+.hub-card h2 {
+  color: var(--color-text);
+  margin-bottom: 10px;
+  font-size: 1.5rem;
+}
+
+.hub-card p {
+  color: var(--color-text-light);
+  font-size: 0.95rem;
+  margin-bottom: 15px;
+}
+
+.card-nickname {
+  color: var(--color-rose-gold);
+  font-size: 1.2rem;
+}
+
+.floral-decoration {
+  position: fixed;
+  font-size: 8rem;
+  opacity: 0.2;
+  z-index: 1;
+  pointer-events: none;
+}
+
+.bottom-left {
+  bottom: -20px;
+  left: -20px;
+  transform: rotate(15deg);
+}
+
+.top-right {
+  top: -20px;
+  right: -20px;
+  transform: rotate(-15deg);
+}

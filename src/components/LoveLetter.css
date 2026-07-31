@@ -1,0 +1,134 @@
+.letter-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+  background-image: radial-gradient(rgba(244, 63, 94, 0.1) 2px, transparent 2px);
+  background-size: 30px 30px;
+}
+
+.envelope {
+  position: relative;
+  width: 300px;
+  height: 200px;
+  background-color: var(--color-rose-gold);
+  border-radius: 0 0 10px 10px;
+  box-shadow: var(--shadow-lg);
+  cursor: pointer;
+  z-index: 2;
+}
+
+.envelope-front {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: #d68b98;
+  clip-path: polygon(0 0, 50% 50%, 100% 0, 100% 100%, 0 100%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-top: 50px;
+}
+
+.envelope-flap {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-rose-gold);
+  clip-path: polygon(0 0, 50% 50%, 100% 0);
+  z-index: 4;
+  transform-origin: top;
+  transition: transform 0.8s ease-in-out;
+}
+
+.envelope.open .envelope-flap {
+  transform: rotateX(180deg);
+  z-index: 1;
+}
+
+.wax-seal {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+.envelope.open .wax-seal {
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.to-piu {
+  color: white;
+  font-size: 1.8rem;
+  margin-top: 40px;
+  text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+.letter {
+  position: absolute;
+  bottom: 0;
+  left: 5%;
+  width: 90%;
+  height: 90%;
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: var(--shadow-md);
+  text-align: center;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+}
+
+.letter h1 {
+  color: var(--color-primary);
+  font-size: 2rem;
+}
+
+.letter p {
+  color: var(--color-text-light);
+  font-size: 1rem;
+}
+
+.hint-text {
+  margin-top: 40px;
+  color: var(--color-text-light);
+  font-style: italic;
+  animation: pulse 2s infinite;
+}
+
+.move-forward-btn {
+  margin-top: 60px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 25px;
+  font-size: 1.2rem;
+  color: var(--color-primary);
+  border-radius: 20px;
+  cursor: pointer;
+  transition: transform 0.2s;
+  z-index: 5;
+}
+
+.move-forward-btn:hover {
+  transform: scale(1.05);
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 1; transform: scale(1.05); }
+  100% { opacity: 0.6; transform: scale(1); }
+}
