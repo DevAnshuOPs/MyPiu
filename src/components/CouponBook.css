@@ -139,3 +139,10 @@
   right: -5px;
   transform: rotate(180deg);
 }
+
+@media (max-width: 768px) {
+  .coupons-header h1 { font-size: 2.2rem; }
+  .coupons-header p { font-size: 1rem; }
+  .coupons-page { padding: 20px 10px; }
+  .coupon-card { height: 180px; }
+}

@@ -90,3 +90,11 @@
   text-align: right;
   font-weight: 500;
 }
+
+@media (max-width: 768px) {
+  .reasons-page { padding: 20px 10px; }
+  .reasons-header h1 { font-size: 2.2rem; }
+  .intro-text { font-size: 1rem; }
+  .reason-card { padding: 25px 15px; }
+  .reason-card p { font-size: 1.6rem; }
+}

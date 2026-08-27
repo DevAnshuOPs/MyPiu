@@ -1,187 +1,152 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowLeft, CheckCircle2, Mail, Heart } from 'lucide-react';
+import { ArrowLeft, ChevronLeft, ChevronRight, PenTool, Mail } from 'lucide-react';
 import './RomanticQuiz.css';
-import confetti from 'canvas-confetti';
 
 const RomanticQuiz = ({ onBack }) => {
-  const [currentQuestion, setCurrentQuestion] = useState(0);
-  const [showScore, setShowScore] = useState(false);
-  const [envelopeOpen, setEnvelopeOpen] = useState(false);
-  
-  // Track positions for evasive buttons
-  const [evasionPos, setEvasionPos] = useState({});
+  const [currentIndex, setCurrentIndex] = useState(0);
 
-  const questions = [
+  // Grouped into two main sections
+  const sections = [
     {
-      questionText: "Where did we first meet?",
-      answerOptions: [
-        { id: 'q1_1', answerText: "At a coffee shop", isCorrect: false },
-        { id: 'q1_2', answerText: "Through friends", isCorrect: false },
-        { id: 'q1_3', answerText: "[Your correct answer here]", isCorrect: true },
-        { id: 'q1_4', answerText: "At work/school", isCorrect: false },
-      ],
+      id: 'poems',
+      type: 'Poems',
+      icon: <PenTool size={16} />,
+      header: "The poems that I wrote for you before but still once again feel them",
+      items: [
+        { 
+          title: "Ocean In Your Eyes", 
+          content: `Your eyes I see the beauty in it
+The beauty that cannot be described
+Perhaps can just be felt
+Not by others, not by many
+But Just by me
+The ocean that they hold
+The urge to carelessly drown in them
+Or swim in it forever
+Just drown slowly
+Till every ounce of breath in me becomes a part of that ocean
+Till the ocean bed hugs my cold lifeless body deep within its warmth
+Till I completely become a part of you
+Forever` 
+        },
+        { 
+          title: "Through My Eyes", 
+          content: `Look at her through my eyes
+Look at her through my eyes and you'll only see her
+You'll only see her even though I've never met her 
+You'll see her shilloette even though I've never known her shape
+You'll see her smile even though I've never touched those lips
+You'll see her hands even though I've never felt her warmth
+Look at her through my eyes and You'll not see your world, but mine, mine alone` 
+        }
+      ]
     },
     {
-      questionText: "What is my favorite nickname for you?",
-      answerOptions: [
-        { id: 'q2_1', answerText: "Piu", isCorrect: false },
-        { id: 'q2_2', answerText: "Princess", isCorrect: false },
-        { id: 'q2_3', answerText: "Cutie", isCorrect: false },
-        { id: 'q2_4', answerText: "[Your favorite nickname]", isCorrect: true },
-      ],
-    },
-    {
-      questionText: "What was the first movie we watched together?",
-      answerOptions: [
-        { id: 'q3_1', answerText: "[Movie 1]", isCorrect: false },
-        { id: 'q3_2', answerText: "[Correct Movie]", isCorrect: true },
-        { id: 'q3_3', answerText: "[Movie 3]", isCorrect: false },
-        { id: 'q3_4', answerText: "[Movie 4]", isCorrect: false },
-      ],
-    },
-    {
-      questionText: "Who said 'I love you' first?",
-      answerOptions: [
-        { id: 'q4_1', answerText: "You did!", isCorrect: false },
-        { id: 'q4_2', answerText: "I did!", isCorrect: true },
-        { id: 'q4_3', answerText: "We said it at the same time", isCorrect: false },
-      ],
-    },
-    {
-      questionText: "How much do I love you?",
-      answerOptions: [
-        { id: 'q5_1', answerText: "A lot", isCorrect: false },
-        { id: 'q5_2', answerText: "To the moon", isCorrect: false },
-        { id: 'q5_3', answerText: "Infinitely", isCorrect: true },
-        { id: 'q5_4', answerText: "Very much", isCorrect: false },
-      ],
+      id: 'letters',
+      type: 'Letter',
+      icon: <Mail size={16} />,
+      header: "Letter straight from my heart",
+      items: [
+        { 
+          title: "Happy Birthday PIU", 
+          content: (
+            <>
+              {`Wish You a Very Very Happy Birthday My Baby, I know it would be better if i could be there and wish you face to face, but how do i explain, its the essence of the slightest belief that you are real, essence of protectiveness and safety that i want to make you feel, a sense of belonging, how do i explain that i want to hold you close to me, to my heart when you feel sad or upset, i want to hold your head in my palms, a sense of my entire world in my palms, i want to take your hands and kiss your palms, as if i was yearning for decades, i want to kiss your feet, as that is where I belong, i want to pull you closer to me as I'm scared to death even an inch apart from you feels like i lost a piece of myself, i want to put your head on my chest, to show you that it only beats for you, i want to kiss your eyes, as if I'm trying to take away all your tears, i want to kiss your forehead, as if I'm trying to ease your mind, i want to kiss your cheeks, as if I'm trying to show you that i accept you and love you as you are, i want to kiss your lips, as if thats how I'm trying to express my love for you, i want to hold your hand, to show that even if the entire world is against you, I'll stand with you, stand proud with you, i want to carry you in my arms, to show you that you dont have to carry the pain alone, i want to wake up next to you, as if I'm making sure that you slept well, so yes i wanna hold you tight to show you that yes girl you matter, you matter to me the most, so never forget that, and always be happy about yourself cuz you make someone else very happy with your existence, and that someone else is ME, I love you PIU, and again wish you a Very Happy Birthday Baby...`}
+              <br /><br />
+              <h2 className="cursive" style={{ textAlign: 'center', color: 'var(--color-primary)', marginTop: '20px', fontSize: '2.5rem', lineHeight: '1.4' }}>
+                Always Be Happy My Baby, No Matter What, Thats all this Man Wants
+              </h2>
+            </>
+          )
+        }
+      ]
     }
   ];
 
-  const handleEvade = (id, isCorrect) => {
-    if (isCorrect) return; // Correct answer doesn't move
-
-    // Generate random offset that is far away (between 300 and 600 pixels away)
-    const signX = Math.random() > 0.5 ? 1 : -1;
-    const signY = Math.random() > 0.5 ? 1 : -1;
-    const x = (Math.floor(Math.random() * 300) + 300) * signX;
-    const y = (Math.floor(Math.random() * 300) + 300) * signY;
-    
-    setEvasionPos(prev => ({ ...prev, [id]: { x, y } }));
-  };
-
-  const handleAnswerOptionClick = (isCorrect) => {
-    if (isCorrect) {
-      const nextQuestion = currentQuestion + 1;
-      if (nextQuestion < questions.length) {
-        setCurrentQuestion(nextQuestion);
-        setEvasionPos({});
-      } else {
-        setShowScore(true);
-        confetti({
-          particleCount: 150,
-          spread: 80,
-          origin: { y: 0.6 }
-        });
-      }
+  const handleNext = () => {
+    if (currentIndex < sections.length - 1) {
+      setCurrentIndex(currentIndex + 1);
     }
   };
 
-  const handleOpenEnvelope = () => {
-    setEnvelopeOpen(true);
+  const handlePrev = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    }
   };
 
+  const currentSection = sections[currentIndex];
+
   return (
-    <div className="quiz-page">
+    <div className="letters-page">
       <button className="back-btn glass-panel" onClick={onBack}>
         <ArrowLeft size={24} />
-        <span>Back</span>
+        <span>Back to Hub</span>
       </button>
 
-      <div className="quiz-container glass-panel">
+      <div className="letters-header">
+        <h1 className="cursive">Poems & Letters 🌸</h1>
+        <p>Words written just for you...</p>
+      </div>
+
+      <div className="letters-container">
         <AnimatePresence mode="wait">
-          {showScore ? (
-            <motion.div 
-              key="score"
-              className="score-section"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
-            >
-              {!envelopeOpen ? (
-                <div className="envelope-reveal">
-                  <h2 className="cursive">You did it, Princess! 🌷</h2>
-                  <p>You know us perfectly. I have something for you...</p>
-                  
-                  <motion.div 
-                    className="reward-envelope"
-                    onClick={handleOpenEnvelope}
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                  >
-                    <Mail size={80} color="#b76e79" />
-                    <Heart size={24} color="#f43f5e" className="reward-heart" />
-                    <span className="tap-text">Tap to open</span>
-                  </motion.div>
+          <motion.div
+            key={currentIndex}
+            className="letter-paper glass-panel"
+            initial={{ opacity: 0, rotateY: 90 }}
+            animate={{ opacity: 1, rotateY: 0 }}
+            exit={{ opacity: 0, rotateY: -90 }}
+            transition={{ duration: 0.6 }}
+          >
+            <div className="letter-type-badge">
+              {currentSection.icon}
+              <span>{currentSection.type}</span>
+            </div>
+            
+            <h2 className="letter-title cursive">{currentSection.header}</h2>
+            
+            <div className="scrollable-content">
+              {currentSection.items.map((item, idx) => (
+                <div key={idx} className="writing-item">
+                  <h3 className="writing-title">{item.title}</h3>
+                  <div className="writing-body">{item.content}</div>
+                  {idx < currentSection.items.length - 1 && <div className="writing-divider"></div>}
                 </div>
-              ) : (
-                <motion.div 
-                  className="letter-reveal"
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={{ opacity: 1, y: 0 }}
-                >
-                  <p className="cursive">My handwritten letter to you...</p>
-                  <div className="letter-image-placeholder">
-                    {/* The user will put letter.jpg in public/assets */}
-                    <img src="/assets/letter.jpg" alt="Handwritten Letter" onError={(e) => {
-                      e.target.style.display = 'none';
-                      e.target.nextSibling.style.display = 'flex';
-                    }} />
-                    <div className="missing-image-fallback" style={{ display: 'none' }}>
-                      <p>Placeholder for letter.jpg</p>
-                      <small>(Place your letter image in public/assets/letter.jpg)</small>
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-            </motion.div>
-          ) : (
-            <motion.div 
-              key="question"
-              className="question-section"
-              initial={{ opacity: 0, x: 50 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -50 }}
-            >
-              <div className="question-count">
-                <span>Question {currentQuestion + 1}</span>/{questions.length}
-              </div>
-              <div className="question-text">{questions[currentQuestion].questionText}</div>
-              
-              <div className="answer-section">
-                {questions[currentQuestion].answerOptions.map((answerOption) => {
-                  const pos = evasionPos[answerOption.id] || { x: 0, y: 0 };
-                  
-                  return (
-                    <motion.button 
-                      key={answerOption.id}
-                      className={`answer-btn ${answerOption.isCorrect ? 'correct-target' : ''}`}
-                      onClick={() => handleAnswerOptionClick(answerOption.isCorrect)}
-                      onHoverStart={() => handleEvade(answerOption.id, answerOption.isCorrect)}
-                      onMouseEnter={() => handleEvade(answerOption.id, answerOption.isCorrect)} // For non-framer fallback
-                      animate={{ x: pos.x, y: pos.y }}
-                      transition={{ type: 'spring', stiffness: 500, damping: 10, mass: 0.5 }}
-                      style={{ position: 'relative', zIndex: pos.x !== 0 ? 10 : 1 }}
-                    >
-                      <span>{answerOption.answerText}</span>
-                    </motion.button>
-                  );
-                })}
-              </div>
-            </motion.div>
-          )}
+              ))}
+            </div>
+
+            <div className="letter-footer">
+              <p className="cursive">With all my love,</p>
+              <p className="cursive signature">Your Anshu</p>
+            </div>
+          </motion.div>
         </AnimatePresence>
+
+        <div className="navigation-controls">
+          <button 
+            className="nav-btn glass-panel" 
+            onClick={handlePrev} 
+            disabled={currentIndex === 0}
+          >
+            <ChevronLeft size={24} />
+            <span>Poems</span>
+          </button>
+          
+          <span className="page-indicator">
+            {currentIndex + 1} / {sections.length}
+          </span>
+          
+          <button 
+            className="nav-btn glass-panel" 
+            onClick={handleNext} 
+            disabled={currentIndex === sections.length - 1}
+          >
+            <span>Letters</span>
+            <ChevronRight size={24} />
+          </button>
+        </div>
       </div>
     </div>
   );

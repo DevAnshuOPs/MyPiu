@@ -4,12 +4,28 @@ import { ArrowLeft, Image as ImageIcon } from 'lucide-react';
 import './MemoryTimeline.css';
 
 const MemoryTimeline = ({ onBack }) => {
-  // Placeholders for the user to fill out later
   const memories = [
-    { id: 1, date: '23/06/2026', title: 'The Day It All Began', desc: 'Add a little description about how you met or your first date here.', img: '' },
-    { id: 2, date: '09/07/2026', title: 'The Day We Finally Made It Official', desc: 'Write about a fun adventure you had together.', img: '' },
-    { id: 3, date: 'DD/MM/YYYY', title: 'A Funny Moment', desc: 'Share an inside joke or something that always makes you both laugh.', img: '' },
-    { id: 4, date: 'Today!', title: 'Happy Birthday!', desc: 'Happy Birthday to my beautiful Piu! Here is to many more memories.', img: '' },
+    { id: 1, title: "The Day It All Began", desc: "", img: "/journey-photos/1.jpeg" },
+    { id: 2, title: "Let's Never Get Attached", desc: "The only promise we would every break to each other, and I am really glad we broke it", img: "/journey-photos/2.jpeg" },
+    { id: 3, title: "The Day We Finally Confessed Our Feelings", desc: "I was so scared that day, but I am really loving the next chapter", img: "/journey-photos/3.jpeg" },
+    { id: 4, title: "Your First Letter To Me", desc: "You have no idea how many times I read it and how much I loved it", img: "/journey-photos/4.jpeg" },
+    { id: 5, title: "The First Time I Saw You", desc: "I fell for you again that Day", img: "/journey-photos/5.jpeg" },
+    { id: 6, title: "The Day You Wrote Again", desc: "I'm glad that it was about us that you started writing again with", img: "/journey-photos/6.jpeg" },
+    { id: 7, title: "Ahh I Love This Baby", desc: "My Babyyyyyyyyyy", img: "/journey-photos/7.jpeg" },
+    { id: 8, title: "There's Never Been A Day That You Didn't Make Me Feel Special Or Loved", desc: "", img: "/journey-photos/8.jpeg" },
+    { id: 9, title: "The Way You Understand Me", desc: "", img: "/journey-photos/9.jpeg" },
+    { id: 10, title: "We Had Our Struggles Together", desc: "But there was a different feel to it even when we were way, I craved for some one for the first time", img: "/journey-photos/10.jpeg" },
+    { id: 11, title: "Our First Anniversary", desc: "My first letter to you", img: "/journey-photos/11.jpeg" },
+    { id: 12, title: "We Had Our Fun And Cheers To Way More", desc: "Touchwood, Teri Nazar Utaru a Billion Times", img: "/journey-photos/12.jpeg" },
+    { id: 13, title: "There Is So Much Love Between Us", desc: "Touchwood Again", img: "/journey-photos/13.jpeg" },
+    { id: 14, title: "You Made A Man Very Happy And Relaxed", desc: "and I appreciate you so much for it", img: "/journey-photos/14.jpeg" },
+    { id: 15, title: "Your Diary Titles", desc: "Well even though I don't the context but I love that they are about Me", img: "/journey-photos/15.jpeg" },
+    { id: 16, title: "We Had Our Misunderstandings, Days That I Messed Up", desc: "And I'm still sorry about it, but I promise to be better", img: "/journey-photos/16.jpeg" },
+    { id: 17, title: "But Then Our Day Ended Like This So Its Fine", desc: "", img: "/journey-photos/17.jpeg" },
+    { id: 18, title: "And Back To Being Us The Next Day", desc: "", img: "/journey-photos/18.jpeg" },
+    { id: 19, title: "Again So Much Love", desc: "Ahhhhhhh Touchwoooooddddd", img: "/journey-photos/19.jpeg" },
+    { id: 20, title: "One Day We'll Definitely Recreate This", desc: "No distance, no AI, no other people, JUST US", img: "/journey-photos/20.jpeg" },
+    { id: 21, title: "Ahh I Had To Specially Mention These Eyes", desc: "After all I live for them and I would die for them", img: "/journey-photos/21.jpeg" }
   ];
 
   return (
@@ -26,9 +42,9 @@ const MemoryTimeline = ({ onBack }) => {
 
       <div className="timeline-container">
         <div className="timeline-line"></div>
-        
+
         {memories.map((memory, index) => (
-          <motion.div 
+          <motion.div
             key={memory.id}
             className={`timeline-item ${index % 2 === 0 ? 'left' : 'right'}`}
             initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
@@ -38,10 +54,9 @@ const MemoryTimeline = ({ onBack }) => {
           >
             <div className="timeline-dot"></div>
             <div className="timeline-content glass-panel">
-              <span className="timeline-date">{memory.date}</span>
               <h2>{memory.title}</h2>
-              <p>{memory.desc}</p>
-              
+              {memory.desc && <p>{memory.desc}</p>}
+
               {/* Image Placeholder */}
               <div className="timeline-image-placeholder">
                 {memory.img ? (

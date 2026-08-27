@@ -1,35 +1,14 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { motion } from 'framer-motion';
 import { Map, Ticket, HeartHandshake, Sparkles } from 'lucide-react';
 import './MainHub.css';
-
-const LilyIcon = ({ className = "", style = {} }) => (
-  <svg 
-    width="1em" 
-    height="1em" 
-    viewBox="0 0 24 24" 
-    fill="none" 
-    stroke="currentColor" 
-    strokeWidth="1.5" 
-    strokeLinecap="round" 
-    strokeLinejoin="round" 
-    className={className}
-    style={{ color: '#ff4d85', display: 'inline-block', ...style }}
-  >
-    <path d="M12 22v-7" stroke="#4ade80" strokeWidth="2" />
-    <path d="M12 15c-2 0-5-2-5-5 0-3 2-6 5-8 3 2 5 5 5 8 0 3-3 5-5 5z" fill="#ffb3c6" stroke="#ff4d85" />
-    <path d="M12 15c-3 1-6 0-8-3 2-2 6-2 8 3z" fill="#ff85a1" stroke="#ff4d85" />
-    <path d="M12 15c3 1 6 0 8-3-2-2-6-2-8 3z" fill="#ff85a1" stroke="#ff4d85" />
-    <circle cx="12" cy="10" r="1.5" fill="#fff" stroke="none" />
-  </svg>
-);
 
 const MainHub = ({ onNavigate }) => {
   const features = [
     { id: 'timeline', title: 'Our Journey', icon: <Map size={32} />, desc: 'A stroll down memory lane', nickname: 'My Piu' },
     { id: 'coupons', title: 'Love Coupons', icon: <Ticket size={32} />, desc: 'Redeemable for hugs & more', nickname: 'My Princess' },
     { id: 'reasons', title: 'Why I Love You', icon: <HeartHandshake size={32} />, desc: 'A little reminder', nickname: 'My Baby' },
-    { id: 'quiz', title: 'The Piu Quiz', icon: <Sparkles size={32} />, desc: 'How well do we know us?', nickname: 'My Cupcake' }
+    { id: 'quiz', title: 'Poems and Letters for Piu', icon: <Sparkles size={32} />, desc: 'A collection of my feelings', nickname: 'My Cupcake' }
   ];
 
   const container = {
@@ -45,43 +24,50 @@ const MainHub = ({ onNavigate }) => {
     show: { opacity: 1, y: 0 }
   };
 
-  const gardenFlowers = useMemo(() => {
-    return Array.from({ length: 20 }).map((_, i) => ({
-      id: i,
-      isTulip: Math.random() > 0.5,
-      size: `${2.5 + Math.random() * 2}rem`,
-      animationDelay: `-${Math.random() * 4}s`,
-      animationDuration: `${3 + Math.random() * 2}s`
-    }));
-  }, []);
+  const blendedFlowers = [
+    { id: 1, emoji: '🌸', top: '10%', left: '5%', size: '4rem', rotation: '-15deg', opacity: 0.2 },
+    { id: 2, emoji: '🌷', top: '15%', left: '15%', size: '3.5rem', rotation: '10deg', opacity: 0.2 },
+    { id: 3, emoji: '🌸', top: '12%', left: '85%', size: '4rem', rotation: '20deg', opacity: 0.2 },
+    { id: 4, emoji: '🌷', top: '8%', left: '75%', size: '3.5rem', rotation: '-10deg', opacity: 0.2 },
+    { id: 5, emoji: '🌸', top: '45%', left: '8%', size: '3.5rem', rotation: '5deg', opacity: 0.2 },
+    { id: 6, emoji: '🌷', top: '55%', left: '4%', size: '4rem', rotation: '-20deg', opacity: 0.2 },
+    { id: 7, emoji: '🌸', top: '50%', left: '90%', size: '4rem', rotation: '-10deg', opacity: 0.2 },
+    { id: 8, emoji: '🌷', top: '40%', left: '82%', size: '3.5rem', rotation: '15deg', opacity: 0.2 },
+    { id: 9, emoji: '🌸', top: '85%', left: '10%', size: '4rem', rotation: '25deg', opacity: 0.2 },
+    { id: 10, emoji: '🌷', top: '75%', left: '6%', size: '3.5rem', rotation: '-5deg', opacity: 0.2 },
+    { id: 11, emoji: '🌸', top: '80%', left: '80%', size: '3.5rem', rotation: '-15deg', opacity: 0.2 },
+    { id: 12, emoji: '🌷', top: '88%', left: '88%', size: '4rem', rotation: '10deg', opacity: 0.2 },
+  ];
 
   return (
     <div className="hub-container">
-      <div className="garden">
-        {gardenFlowers.map(f => (
-          <div
-            key={f.id}
-            className="garden-flower"
-            style={{
-              fontSize: f.size,
-              animationDelay: f.animationDelay,
-              animationDuration: f.animationDuration
-            }}
-          >
-            {f.isTulip ? '🌷' : <LilyIcon />}
-          </div>
-        ))}
-      </div>
+      {/* Blended background flowers */}
+      {blendedFlowers.map(f => (
+        <div
+          key={f.id}
+          style={{
+            position: 'absolute',
+            top: f.top,
+            left: f.left,
+            fontSize: f.size,
+            transform: `rotate(${f.rotation})`,
+            opacity: f.opacity,
+            pointerEvents: 'none',
+            zIndex: 0
+          }}
+        >
+          {f.emoji}
+        </div>
+      ))}
 
       <motion.div 
         className="hub-header"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8 }}
+        style={{ zIndex: 1, position: 'relative' }}
       >
-        <h1 className="cursive">
-          For My Piu <LilyIcon style={{ verticalAlign: 'middle', marginLeft: '5px' }} />
-        </h1>
+        <h1 className="cursive">For My Piu 🌸</h1>
         <p>Pick an adventure, Sweetheart!</p>
       </motion.div>
 
